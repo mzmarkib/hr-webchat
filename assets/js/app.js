@@ -330,6 +330,11 @@
       chatSend.setAttribute('disabled', 'disabled');
       starterPromptsWrapper.innerHTML = "";
 
+      // disable clear chat buttons
+      document.querySelectorAll('.btn-refresh').forEach((element) => {
+        element.setAttribute('disabled', 'disabled')
+      });
+
       try {
 
         let chatId = TynApp.Chat.getChatId();
@@ -339,7 +344,7 @@
         }, 2000);
 
         // Send the getInput to the Flowise API
-        const response = await fetch('https://ai.hr-chatbot.traicie.com/api/v1/prediction/0a9e34ae-9bcf-4148-b5f6-a64651e12122', {
+        const response = await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -368,6 +373,11 @@
 
       let parsedResponse = TynApp.Chat.parseResponse(replyBody.text);
       localStorage.setItem('sessionId', replyBody.assistant.threadId);
+
+      // enable clear chat buttons
+      document.querySelectorAll('.btn-refresh').forEach((element) => {
+        element.removeAttribute('disabled')
+      });
 
       switch (parsedResponse.type) {
         case "mcq":
@@ -461,8 +471,25 @@
         .then((response) => response.text())
         .then((result) => {
           let messages = JSON.parse(result);
+          console.log(messages.length);
+          let msgCounter = 0;
           messages.forEach((message) => {
-            TynApp.Chat.renderChatBubble(message.content, true ? message.role === 'userMessage' : false);
+            msgCounter++;
+            let parsedMessage = TynApp.Chat.parseResponse(message.content);
+
+            if (message.role === 'userMessage') {
+              TynApp.Chat.renderChatBubble(parsedMessage.text, true);
+            } else {
+              if (parsedMessage.type === 'mcq') {
+                TynApp.Chat.renderChatBubble(parsedMessage.text, false);
+
+                // Render the MCQ options if it is the last message
+                if (msgCounter === messages.length)
+                  TynApp.Chat.renderMcqOptions(parsedMessage.options);
+              } else {
+                TynApp.Chat.renderChatBubble(parsedMessage.text, false);
+              }
+            }
           });
         })
         .catch((error) => console.error(error));
@@ -697,7 +724,7 @@
     });
 
     // Load Organization name
-    document.querySelector('.tyn-aside-title').innerHTML = TynApp.chatbotConfig.name;
+    // document.querySelector('.tyn-aside-title').innerHTML = TynApp.chatbotConfig.name;
 
     // Apply the theme colors
     const rootElement = document.documentElement;
@@ -728,9 +755,16 @@
     }
 
     // reset conversation
-    document.querySelector('#btn-refresh').addEventListener('click', function () {
-      TynApp.Chat.resetConversation();
+    document.querySelectorAll('.btn-refresh').forEach((element) => {
+      element.addEventListener('click', function () {
+        TynApp.Chat.resetConversation();
+      });
     });
+
+    // Organization more link
+    if (TynApp.chatbotConfig.chatbotConfig.theme.orgMoreLink) {
+      document.querySelector('.org-more-link').setAttribute('href', TynApp.chatbotConfig.chatbotConfig.theme.orgMoreLink);
+    }
   }
 
   TynApp.loadConfig = async function () {
