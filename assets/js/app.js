@@ -511,7 +511,9 @@
       chatInput.setAttribute('contenteditable', 'true');
       chatSend.removeAttribute('disabled');
       TynApp.Chat.renderChatBubble(TynApp.chatbotConfig.chatbotConfig.welcomeMessage, false);
-      TynApp.Chat.renderStarterPrompts(TynApp.chatbotConfig.chatbotConfig.starterPrompts);
+
+      if (TynApp.chatbotConfig.chatbotConfig.starterPrompts)
+        TynApp.Chat.renderStarterPrompts(TynApp.chatbotConfig.chatbotConfig.starterPrompts);
     },
     // chat item active toggle
     item: function () {
@@ -753,7 +755,8 @@
     // if continued conversation
     if (!localStorage.sessionId || localStorage.sessionId == 'undefined') {
       // render starter prompts
-      TynApp.Chat.renderStarterPrompts(TynApp.chatbotConfig.chatbotConfig.starterPrompts);
+      if (TynApp.chatbotConfig.chatbotConfig.starterPrompts)
+        TynApp.Chat.renderStarterPrompts(TynApp.chatbotConfig.chatbotConfig.starterPrompts);
     } else {
       await TynApp.Chat.renderPreviousMessages();
     }
@@ -806,7 +809,7 @@
 
         localStorage.setItem('chatbotConfig', JSON.stringify(parsedResult));
         TynApp.chatbotConfig = parsedResult;
-        TynApp.initTranslate(parsedResult.chatbotConfig.theme.language);
+        TynApp.initTranslate(parsedResult?.chatbotConfig?.theme?.language || 'english');
       })
       .catch((error) => {
         console.error(error);
