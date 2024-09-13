@@ -180,9 +180,10 @@
     },
     renderChatBubble: function (message, isOutgoing = false) {
       let chatReply = document.querySelector('#tynReply');
+      let avatarUrl = TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl ? TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl : "https://traicie.com/app/uploads/2023/10/traicie-multimatch-vacancies.gif";
       let chatItem = `
         <div class="tyn-reply-item ${isOutgoing ? 'outgoing' : 'incoming'} gap-2">
-          ${isOutgoing ? '' : '<div class="tyn-qa-avatar"><div class="tyn-media tyn-size-md"><img src="' + TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl + '" alt=""></div></div>'}
+          ${isOutgoing ? '' : '<div class="tyn-qa-avatar"><div class="tyn-media tyn-size-md"><img src="' + avatarUrl + '" alt=""></div></div>'}
           <div class="tyn-reply-group">
             <div class="tyn-reply-bubble">
               <div class="tyn-reply-text">
@@ -249,11 +250,13 @@
       let promptsHtml = `
         <div class="gth-starter-prompts py-3 px-4 d-flex gap-2 flex-wrap">
           
-          ${starterPrompts.map((prompt, index) => `
-            <button class="starter-prompt btn btn-white btn-md btn-pill">
-              ${prompt}
-            </button>
-          `).join('')}
+          ${starterPrompts.map((prompt, index) =>
+        prompt ? `
+              <button class="starter-prompt btn btn-white btn-md btn-pill">
+                ${prompt}
+              </button>
+            ` : ''
+      ).join('')}
         </div>
         <ul class="tyn-list-inline gap-1">
           
@@ -282,7 +285,7 @@
       let chatReply = document.querySelector('#tynReply');
       let typingBubble = `
         <div class="tyn-reply-item incomming gap-2 typing-bubble">
-          <div class="tyn-qa-avatar"><div class="tyn-media tyn-size-md"><img src="${TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl}" alt=""></div></div>
+          <div class="tyn-qa-avatar"><div class="tyn-media tyn-size-md"><img src="${TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl ? TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl : "https://traicie.com/app/uploads/2023/10/traicie-multimatch-vacancies.gif"}" alt=""></div></div>
           <div class="tyn-reply-group">
             <div class="tyn-reply-bubble">
               <div class="tyn-reply-text">
@@ -735,16 +738,17 @@
 
     // change logo url to the one in the config
     document.querySelector('.tyn-appbar-logo .tyn-logo').innerHTML = `
-      <img src="${TynApp.chatbotConfig.chatbotConfig.theme.orgLogoUrl}" />
+      <img src="${TynApp.chatbotConfig.chatbotConfig.theme.orgLogoUrl ? TynApp.chatbotConfig.chatbotConfig.theme.orgLogoUrl : "https://traicie.com/app/uploads/2023/10/traicie-removebg-preview.png"}" />
     `;
     // change chat-head avatar url to the one in the config
     document.querySelectorAll('.tyn-chat-head .tyn-media').forEach((element) => {
       element.innerHTML = `
-      <img src="${TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl}" />
+      <img src="${TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl ? TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl : "https://traicie.com/app/uploads/2023/10/traicie-multimatch-vacancies.gif"}" />
     `;
     })
 
-    TynApp.Chat.renderChatBubble(TynApp.chatbotConfig.chatbotConfig.welcomeMessage, false);
+    if (TynApp.chatbotConfig.chatbotConfig.welcomeMessage)
+      TynApp.Chat.renderChatBubble(TynApp.chatbotConfig.chatbotConfig.welcomeMessage, false);
 
     // if continued conversation
     if (!localStorage.sessionId || localStorage.sessionId == 'undefined') {
@@ -764,6 +768,9 @@
     // Organization more link
     if (TynApp.chatbotConfig.chatbotConfig.theme.orgMoreLink) {
       document.querySelector('.org-more-link').setAttribute('href', TynApp.chatbotConfig.chatbotConfig.theme.orgMoreLink);
+    } else {
+      // remove the more link if it is not set
+      document.querySelector('.tyn-aside-foot ul').removeChild(document.querySelector('.org-more-link').parentNode);
     }
   }
 
@@ -799,7 +806,7 @@
 
         localStorage.setItem('chatbotConfig', JSON.stringify(parsedResult));
         TynApp.chatbotConfig = parsedResult;
-        console.log(parsedResult);
+        TynApp.initTranslate(parsedResult.chatbotConfig.theme.language);
       })
       .catch((error) => {
         console.error(error);
@@ -809,6 +816,22 @@
         }
       });
   };
+
+  TynApp.initTranslate = function (language) {
+    // convert language to lowercase
+    const lowerCaseLanguage = language.toLowerCase();
+
+    // load the translation json file
+    fetch(`./assets/locales/${lowerCaseLanguage}.json`)
+      .then(response => response.json())
+      .then(data => {
+        // translate the document
+        document.querySelectorAll('[data-translate]').forEach(element => {
+          const key = element.getAttribute('data-translate');
+          element.innerHTML = data[key];
+        });
+      });
+  }
 
 
   TynApp.Custom.init = async function () {

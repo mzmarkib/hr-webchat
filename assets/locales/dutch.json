@@ -1,0 +1,17 @@
+{
+	"appName": "HR Chat",
+	"howToTitle": "Hoe te gebruiken",
+	"onlineText": "Online",
+	"howToContentTitle1": "Begroet en geef uw intentie aan:",
+	"howToContentDescription1": "Begin met een beleefde begroeting. Geef duidelijk aan dat u op zoek bent naar carrièremogelijkheden. <br/><br/>- Voorbeeld: “Hallo, ik ben geïnteresseerd in het verkennen van carrièremogelijkheden in de energiesector.”",
+	"howToContentTitle2": "Geef uw achtergrond en interesses:",
+	"howToContentDescription2": "Deel relevante informatie over uw ervaring en vaardigheden. <br/><br/>- Voorbeeld: “Hallo, ik ben geïnteresseerd in het verkennen van carrièremogelijkheden in de energiesector.”",
+	"howToContentTitle3": "Vraag om hulp:",
+	"howToContentDescription3": "Vraag om hulp bij het vinden van geschikte functies. <br><br>- Voorbeeld: “Kunt u mij helpen functies te vinden die bij mijn expertise passen?”",
+	"sendButton": "Versturen",
+	"closeButton": "Sluiten",
+	"startChatButton": "Chat starten",
+	"clearChatButton": "Chat wissen",
+	"moreLinkButton": "Carrières",
+	"poweredByText": "Aangedreven door"
+}

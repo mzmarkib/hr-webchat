@@ -1,0 +1,17 @@
+{
+	"appName": "HR Chat",
+	"howToTitle": "How to use",
+	"onlineText": "Online",
+	"howToContentTitle1": "Greet and State Your Intent:",
+	"howToContentDescription1": "Begin with a polite greeting. Clearly mention that you’re looking for job opportunities. <br/><br/>- Example: “Hello, I’m interested in exploring job opportunities in the energy sector.",
+	"howToContentTitle2": "Provide Your Background and Interests:",
+	"howToContentDescription2": "Share relevant information about your experience and skills. <br/><br/>- Example: “Hello, I’m interested in exploring job opportunities in the energy sector.”",
+	"howToContentTitle3": "Ask for Assistance:",
+	"howToContentDescription3": "Request help in finding suitable positions. <br><br>- Example: “Could you help me find positions that match my expertise?”",
+	"sendButton": "Send",
+	"closeButton": "Close",
+	"startChatButton": "Start Chat",
+	"clearChatButton": "Clear Chat",
+	"moreLinkButton": "Careers",
+	"poweredByText": "Powered by"
+}

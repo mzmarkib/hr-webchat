@@ -1,0 +1,17 @@
+{
+	"appName": "Chat RH",
+	"howToTitle": "Comment utiliser",
+	"onlineText": "En ligne",
+	"howToContentTitle1": "Saluer et indiquer votre intention :",
+	"howToContentDescription1": "Commencez par une salutation polie. Mentionnez clairement que vous recherchez des opportunités d'emploi. <br/><br/>- Exemple : « Bonjour, je suis intéressé(e) par l'exploration d'opportunités d'emploi dans le secteur de l'énergie. »",
+	"howToContentTitle2": "Fournir vos antécédents et vos intérêts :",
+	"howToContentDescription2": "Partagez des informations pertinentes sur votre expérience et vos compétences. <br/><br/>- Exemple : « Bonjour, je suis intéressé(e) par l'exploration d'opportunités d'emploi dans le secteur de l'énergie. »",
+	"howToContentTitle3": "Demander de l'aide :",
+	"howToContentDescription3": "Demandez de l'aide pour trouver des postes adaptés. <br><br>- Exemple : « Pourriez-vous m'aider à trouver des postes correspondant à mon expertise ? »",
+	"sendButton": "Envoyer",
+	"closeButton": "Fermer",
+	"startChatButton": "Démarrer le chat",
+	"clearChatButton": "Effacer le chat",
+	"moreLinkButton": "Carrières",
+	"poweredByText": "Propulsé par"
+}
