@@ -1827,3 +1827,31 @@ body,
 .gth-starter-prompts {
 	background-color: var(--org-muted-color);
 }
+.tyn-aside,
+.tyn-aside .tyn-aside-title,
+.tyn-aside #all-chats ul li,
+.tyn-aside #all-chats ul li h6 {
+	background-color: var(--org-primary-color);
+	color: var(--org-muted-color);
+}
+.tyn-aside #all-chats ul li svg {
+	fill: var(--org-primary-color) !important;
+}
+.tyn-aside #all-chats ul li p {
+	color: var(--org-muted-color);
+	opacity: 0.8;
+}
+.tyn-aside-foot .btn {
+	background-color: var(--org-primary-color-light);
+	border: 2px solid var(--org-primary-color-light);
+	color: var(--org-muted-color);
+}
+.tyn-aside-foot .btn:active {
+	background-color: var(--org-primary-color);
+	border: 2px solid var(--org-secondary-color);
+	color: var(--org-secondary-color);
+}
+.tyn-aside-foot a {
+	color: var(--org-secondary-color);
+	text-decoration: underline;
+}
