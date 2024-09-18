@@ -333,40 +333,68 @@
       chatSend.setAttribute('disabled', 'disabled');
       starterPromptsWrapper.innerHTML = "";
 
-      // disable clear chat buttons
+      // Disable clear chat buttons
       document.querySelectorAll('.btn-refresh').forEach((element) => {
-        element.setAttribute('disabled', 'disabled')
+        element.setAttribute('disabled', 'disabled');
       });
 
       try {
-
         let chatId = TynApp.Chat.getChatId();
+        let retryCount = 0;
+        const maxRetries = 3; // Number of times to retry
+        let data;
 
-        setTimeout(() => {
-          TynApp.Chat.typingBubble(true);
-        }, 2000);
+        // Retry mechanism loop
+        do {
+          setTimeout(() => {
+            TynApp.Chat.typingBubble(true);
+          }, 2000);
 
-        // Send the getInput to the Flowise API
-        const response = await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            question: messageInput,
-            chatId: chatId,
-          }),
-        });
+          // Send the input to the Flowise API
+          const response = await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              question: messageInput,
+              chatId: chatId,
+            }),
+          });
 
-        // Parse the JSON response
-        const data = await response.json();
+          // Parse the JSON response
+          data = await response.json();
 
-        TynApp.Chat.typingBubble(false);
+          TynApp.Chat.typingBubble(false);
 
-        // Store the chatId in localStorage
+          // Check if the response contains an error, retry if so
+          if (data.text && data.text.toLowerCase().includes('thread id:')) {
+            retryCount++;
+            console.warn(`Retrying... (${retryCount}/${maxRetries})`);
+          } else {
+            break; // Exit the loop if no error in the content
+          }
+
+        } while (retryCount < maxRetries);
+
+        if (retryCount === maxRetries) {
+          console.error('Max retries reached, returning error response.');
+
+          // Enable the chatSend button
+          chatSend.removeAttribute('disabled');
+          // Enable clear chat buttons
+          document.querySelectorAll('.btn-refresh').forEach((element) => {
+            element.removeAttribute('disabled');
+          });
+
+          return false;
+        }
+
+        // Store the chatId in localStorage if necessary
         // localStorage.chatId = data.chatId ? data.chatId : data.assistant.threadId;
 
         return data;
+
       } catch (error) {
         console.error('Error sending message:', error);
         return false;
