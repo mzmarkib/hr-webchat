@@ -703,7 +703,6 @@
   }
 
   TynApp.Theme = async function () {
-
     // Set Theme Function
     function setMode(currentMode) {
       localStorage.setItem('connectme-html', currentMode);
@@ -724,7 +723,7 @@
     // })
 
     // Load bot name
-    document.querySelectorAll('h6.name').forEach((nameElement) => {
+    document.querySelectorAll('h6.name, .agent_name').forEach((nameElement) => {
       nameElement.innerHTML = TynApp.chatbotConfig.chatbotConfig.title;
     });
 
