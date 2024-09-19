@@ -1820,6 +1820,9 @@ body,
 	border-color: var(--org-primary-color);
 	color: var(--org-muted-color);
 }
+.tyn-chat-form-input ul {
+	flex-wrap: wrap;
+}
 
 .tyn-chat-head .tyn-media {
 	border: 1px solid var(--org-primary-color);
@@ -1867,8 +1870,19 @@ body,
 	color: var(--org-secondary-color);
 	text-decoration: underline;
 }
-.tyn-chat-form {
+/* .tyn-chat-form {
 	position: sticky;
 	bottom: 0;
 	left: 0;
+	border: 1px solid red;
+}
+.tyn-chat-content {
+	max-height: calc(100vh - var(--appbar-height)) !important;
+	overflow: hidden;
+	border: 2px solid red;
+} */
+@media screen and (max-width: 768px) {
+	#tynChatSend span {
+		display: none;
+	}
 }
