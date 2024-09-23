@@ -198,7 +198,6 @@
 
       // Get the SimpleBar instance
       let simpleBody = SimpleBar.instances.get(document.querySelector('#tynChatBody'));
-
       // Check if simpleBody exists
       if (simpleBody) {
         // Scroll to the bottom
@@ -239,6 +238,16 @@
         });
 
       });
+
+
+      // Get the SimpleBar instance
+      let simpleBody = SimpleBar.instances.get(document.querySelector('#tynChatBody'));
+      // Check if simpleBody exists
+      if (simpleBody) {
+        // Scroll to the bottom
+        let scrollElement = simpleBody.getScrollElement();
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+      }
     },
     renderStarterPrompts: function (starterPrompts) {
       let starterPromptsWrapper = document.querySelector('.starter-prompts-wrapper');
@@ -280,6 +289,15 @@
         });
 
       });
+
+      // Get the SimpleBar instance
+      let simpleBody = SimpleBar.instances.get(document.querySelector('#tynChatBody'));
+      // Check if simpleBody exists
+      if (simpleBody) {
+        // Scroll to the bottom
+        let scrollElement = simpleBody.getScrollElement();
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+      }
     },
     typingBubble: function (status) {
       let chatReply = document.querySelector('#tynReply');
