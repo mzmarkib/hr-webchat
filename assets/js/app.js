@@ -865,21 +865,36 @@
       });
   };
 
-  TynApp.initTranslate = function (language) {
-    // convert language to lowercase
+  TynApp.initTranslate = function (language, variables = {}) {
+
+    variables = {
+      agentName: TynApp.chatbotConfig.chatbotConfig.title,
+    }
+
+    // Convert language to lowercase
     const lowerCaseLanguage = language.toLowerCase();
 
-    // load the translation json file
+    // Load the translation JSON file
     fetch(`./assets/locales/${lowerCaseLanguage}.json`)
       .then(response => response.json())
       .then(data => {
-        // translate the document
+        // Function to replace placeholders with dynamic variables
+        const replacePlaceholders = (text, variables) => {
+          return text.replace(/{{(.*?)}}/g, (match, p1) => variables[p1.trim()] || match);
+        };
+
+        // Translate the document
         document.querySelectorAll('[data-translate]').forEach(element => {
           const key = element.getAttribute('data-translate');
-          element.innerHTML = data[key];
+          let translatedText = data[key];
+
+          // Replace placeholders in the translated text
+          translatedText = replacePlaceholders(translatedText, variables);
+
+          element.innerHTML = translatedText;
         });
       });
-  }
+  };
 
 
   TynApp.Custom.init = async function () {
