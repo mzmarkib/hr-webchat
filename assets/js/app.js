@@ -74,9 +74,7 @@
       send: function (chatMessage = null) {
         let chatSend = document.querySelector('#tynChatSend');
         let chatInput = document.querySelector('#tynChatInput');
-        let chatReply = document.querySelector('#tynReply');
         let chatBody = document.querySelector('#tynChatBody');
-        let chatActions = ``
 
         chatSend && chatSend.addEventListener("click", async function (event) {
           event.preventDefault();
@@ -359,7 +357,7 @@
       try {
         let chatId = TynApp.Chat.getChatId();
         let retryCount = 0;
-        const maxRetries = 3; // Number of times to retry
+        const maxRetries = 5; // Number of times to retry
         let data;
 
         // Retry mechanism loop
@@ -367,6 +365,8 @@
           setTimeout(() => {
             TynApp.Chat.typingBubble(true);
           }, 2000);
+
+          TynApp.Chat.logChat(messageInput, 'userMessage', chatId, {});
 
           // Send the input to the Flowise API
           const response = await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
@@ -383,12 +383,18 @@
           // Parse the JSON response
           data = await response.json();
 
+          TynApp.Chat.logChat(data.text, 'assistantMessage', data.chatId, data);
+
+
+
+
           TynApp.Chat.typingBubble(false);
 
           // Check if the response contains an error, retry if so
           if (data.text && data.text.toLowerCase().includes('thread id:')) {
             retryCount++;
             console.warn(`Retrying... (${retryCount}/${maxRetries})`);
+            TynApp.Chat.logChat(`Retrying... (${retryCount}/${maxRetries})`, 'error', chatId, {});
           } else {
             break; // Exit the loop if no error in the content
           }
@@ -397,6 +403,7 @@
 
         if (retryCount === maxRetries) {
           console.error('Max retries reached, returning error response.');
+          TynApp.Chat.logChat(`Max retries reached, returning error response.`, 'error', chatId, {});
 
           // Enable the chatSend button
           chatSend.removeAttribute('disabled');
@@ -415,6 +422,7 @@
 
       } catch (error) {
         console.error('Error sending message:', error);
+        TynApp.Chat.logChat(error, 'error', chatId, error);
         return false;
       }
     },
@@ -505,6 +513,34 @@
         return { type: "statement", text: response.trim() };
       }
     },
+    logChat: function (message, role, chatId, payload = null) {
+      // fetch post request to https://n8n-1.o.growthist.io/webhook/traicie-chat-log
+      // no headers 
+      // body: {message, role, payload}
+
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        message,
+        chatId,
+        assistantId: TynApp.chatbotConfig.id,
+        role,
+        payload
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("https://n8n-1.o.growthist.io/webhook/traicie-chat-log", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log("error", error));
+    },
     renderPreviousMessages: async function () {
 
       const myHeaders = new Headers();
@@ -544,6 +580,7 @@
         .catch((error) => console.error(error));
     },
     resetConversation: function () {
+      let chatId = localStorage.chatId;
       localStorage.removeItem('sessionId');
       localStorage.removeItem('chatId');
 
@@ -560,6 +597,8 @@
 
       if (TynApp.chatbotConfig.chatbotConfig.starterPrompts)
         TynApp.Chat.renderStarterPrompts(TynApp.chatbotConfig.chatbotConfig.starterPrompts);
+
+      TynApp.Chat.logChat(`Chat Reset`, 'chatReset', chatId, {});
     },
     // chat item active toggle
     item: function () {
