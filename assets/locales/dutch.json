@@ -6,7 +6,7 @@
 	"howToContentTitle1": "Wie is {{agentName}}?",
 	"howToContentDescription1": "<span class='agent_name'>{{agentName}}</span> is een digitale assistent die je sollicitatie makkelijker maakt.",
 	"howToContentTitle2": "Wat doet <span class='agent_name'>{{agentName}}</span> voor jou?",
-	"howToContentDescription2": "<span class='agent_name'>{{agentName}}</span> beantwoordt met plezier al je vragen over een openstaande functie. Daarnaast stelt <span class='agent_name'>{{agentName}}</span> jou enkele basisvragen om te zien of de baan bij je past.",
+	"howToContentDescription2": "<span class='agent_name'>{{agentName}}</span> beantwoordt met plezier al je vragen over een {{openFunct}}. Daarnaast stelt <span class='agent_name'>{{agentName}}</span> jou enkele basisvragen om te zien of de baan bij je past.",
 	"howToContentTitle3": "Belangrijk om te weten",
 	"howToContentDescription3": "Chatten met <span class='agent_name'>{{agentName}}</span> is anoniem. Aan het einde van het gesprek kies jij of je je contactgegevens wilt achterlaten of niet.<br><br> <span class='agent_name'>{{agentName}}</span> is een AI-chatbot en kan fouten maken.",
 	"sendButton": "Verzenden",

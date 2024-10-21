@@ -173,12 +173,12 @@
       }
 
     },
-    botTyping: function (status = true) {
+    botTyping: function () {
       // TODO: Implement bot typing indicator
     },
     renderChatBubble: function (message, isOutgoing = false) {
       let chatReply = document.querySelector('#tynReply');
-      let avatarUrl = TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl ? TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl : "https://traicie.com/app/uploads/2023/10/traicie-multimatch-vacancies.gif";
+      let avatarUrl = TynApp.chatbotConfig.chatbotConfig.theme.avatarUrl || "https://traicie.com/app/uploads/2023/10/traicie-multimatch-vacancies.gif";
       let chatItem = `
         <div class="tyn-reply-item ${isOutgoing ? 'outgoing' : 'incoming'} gap-2">
           ${isOutgoing ? '' : '<div class="tyn-qa-avatar"><div class="tyn-media tyn-size-md"><img src="' + avatarUrl + '" alt=""></div></div>'}
@@ -257,7 +257,7 @@
       let promptsHtml = `
         <div class="gth-starter-prompts py-3 px-4 d-flex gap-2 flex-wrap">
           
-          ${starterPrompts.map((prompt, index) =>
+          ${starterPrompts.map((prompt) =>
         prompt ? `
               <button class="starter-prompt btn btn-white btn-md btn-pill">
                 ${prompt}
@@ -711,7 +711,7 @@
   TynApp.Plugins = {
     // lightbox init
     lightbox: function () {
-      const lightbox = GLightbox({
+      GLightbox({
         touchNavigation: true,
         loop: true,
         autoplayVideos: true
@@ -734,7 +734,7 @@
             rows: thumbCount / 2,
           },
         });
-        const main = new Swiper('.tyn-stories-slider', {
+        new Swiper('.tyn-stories-slider', {
           speed: 400,
           spaceBetween: 0,
           slidesPerView: 1,
@@ -906,8 +906,15 @@
 
   TynApp.initTranslate = function (language, variables = {}) {
 
+    let open_funct = "openstaande functie"
+    if (TynApp.chatbotConfig.id == "e0e49c44-4b88-4379-acfa-f0258f431dc6") //fluvius
+      open_funct = "technieker elektriciteit"
+    else if (TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5" || TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5") //meat&more
+      open_funct = "Solliciteren voor winkelbediende "
+
     variables = {
       agentName: TynApp.chatbotConfig.chatbotConfig.title,
+      openFunct: open_funct
     }
 
     // Convert language to lowercase
