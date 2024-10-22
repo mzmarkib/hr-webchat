@@ -907,9 +907,9 @@
   TynApp.initTranslate = function (language, variables = {}) {
 
     let open_funct = "openstaande functie"
-    if (TynApp.chatbotConfig.id == "e0e49c44-4b88-4379-acfa-f0258f431dc6") //fluvius
+    if (TynApp.chatbotConfig.id == "eb94fbbc-4d6f-48f1-a2d1-1b3f4af4442a") //fluvius
       open_funct = "Technieker elektriciteit"
-    else if (TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5" || TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5") //meat&more
+    else if (TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5") //meat&more
       open_funct = "Winkelbediende"
 
     variables = {
