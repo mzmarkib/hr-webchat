@@ -904,6 +904,8 @@
       });
   };
 
+
+
   TynApp.initTranslate = function (language, variables = {}) {
 
     let open_funct = "openstaande functie"
