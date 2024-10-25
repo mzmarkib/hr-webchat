@@ -1006,6 +1006,7 @@ dl {
 	width: max-content;
 	max-width: 100%;
 }
+
 .outgoing .tyn-reply-bubble {
 	flex-direction: row-reverse;
 }
@@ -1893,4 +1894,8 @@ body,
 	color: var(--org-primary-color);
 	background-color: transparent !important;
 	border: 2px solid var(--org-primary-color);
+}
+
+.tyn-reply-item .tyn-reply-text {
+	box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.4);
 }
