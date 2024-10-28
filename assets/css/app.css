@@ -1780,10 +1780,10 @@ dl {
 }
 
 :root {
-	--org-primary-color: #004c69;
-	--org-primary-color-light: #337087;
-	--org-secondary-color: #b2d235;
-	--org-muted-color: #e2e8f0;
+	--org-primary-color: #fff;
+	--org-primary-color-light: #ffffff;
+	--org-secondary-color: #ffffff;
+	--org-muted-color: #ffffff;
 }
 
 body,
@@ -1831,7 +1831,7 @@ body,
 	fill: var(--org-primary-color) !important;
 }
 .tyn-aside #all-chats ul li p {
-	color: var(--org-muted-color);
+	color: var(--org-muted-color) !important;
 	opacity: 0.8;
 }
 .tyn-aside-foot .btn {
