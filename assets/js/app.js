@@ -822,6 +822,12 @@
     rootElement.style.setProperty('--org-secondary-color', TynApp.chatbotConfig.chatbotConfig.theme.secondaryColor);
     rootElement.style.setProperty('--org-muted-color', TynApp.chatbotConfig.chatbotConfig.theme.mutedColor);
 
+    if (TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5") {//meat&more
+      document.querySelectorAll('.tyn-aside-foot .btn').forEach((element) => {
+        element.classList.add('btn-fluvius');
+      })
+    }
+
     // change logo url to the one in the config
     document.querySelector('.tyn-appbar-logo .tyn-logo').innerHTML = `
       <img src="${TynApp.chatbotConfig.chatbotConfig.theme.orgLogoUrl ? TynApp.chatbotConfig.chatbotConfig.theme.orgLogoUrl : "https://traicie.com/app/uploads/2023/10/traicie-removebg-preview.png"}" />

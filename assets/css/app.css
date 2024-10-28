@@ -1899,3 +1899,13 @@ body,
 .tyn-reply-item .tyn-reply-text {
 	box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.4);
 }
+.btn-fluvius {
+	background-color: #fad484 !important;
+	color: var(--org-primary-color) !important;
+	border-color: #fad484 !important;
+}
+
+.btn-fluvius:active {
+	color: #fad484 !important;
+	background-color: var(--org-primary-color) !important;
+}
