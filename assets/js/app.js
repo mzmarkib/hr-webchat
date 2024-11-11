@@ -369,10 +369,11 @@
           TynApp.Chat.logChat(messageInput, 'userMessage', chatId, {});
 
           // Send the input to the Flowise API
-          const response = await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
+          const response = await fetch(`https://traicie-flowise.o.growthist.io/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+              Authorization: "Bearer SB7lczvHn4_APtsiuUnsLNFMsCTPR_EKQpWMJHNiVao",
+              "Content-Type": "application/json"
             },
             body: JSON.stringify({
               question: messageInput,
@@ -543,16 +544,16 @@
     },
     renderPreviousMessages: async function () {
 
-      const myHeaders = new Headers();
-      myHeaders.append("Authorization", "Basic Sm9jaGVuOkBUcmFpY2llMjAyNA==");
-
       const requestOptions = {
         method: "GET",
-        headers: myHeaders,
+        headers: {
+          Authorization: "Bearer SB7lczvHn4_APtsiuUnsLNFMsCTPR_EKQpWMJHNiVao",
+          "Content-Type": "application/json"
+        },
         redirect: "follow"
       };
 
-      await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/chatmessage/${TynApp.chatbotConfig.id}?order=ASC&sessionId=${localStorage.sessionId}`, requestOptions)
+      await fetch(`https://traicie-flowise.o.growthist.io/api/v1/chatmessage/${TynApp.chatbotConfig.id}?order=ASC&sessionId=${localStorage.sessionId}`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           let messages = JSON.parse(result);
@@ -877,16 +878,16 @@
       return;
     }
 
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic Sm9jaGVuOkBUcmFpY2llMjAyNA==");
-
     const requestOptions = {
       method: "GET",
-      headers: myHeaders,
+      headers: {
+        Authorization: "Bearer SB7lczvHn4_APtsiuUnsLNFMsCTPR_EKQpWMJHNiVao",
+        "Content-Type": "application/json"
+      },
       redirect: "follow"
     };
 
-    await fetch(`https://ai.hr-chatbot.traicie.com/api/v1/public-chatflows/${hash.replace('#', "")}`, requestOptions)
+    await fetch(`https://traicie-flowise.o.growthist.io/api/v1/public-chatflows/${hash.replace('#', "")}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         // Parse the main JSON object
