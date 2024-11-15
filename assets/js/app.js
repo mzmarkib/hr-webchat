@@ -827,7 +827,12 @@
       document.querySelectorAll('.tyn-aside-foot .btn').forEach((element) => {
         element.classList.add('btn-fluvius');
       })
+    } else if (TynApp.chatbotConfig.id == "4c727d07-7c3e-4bb0-872b-e9aaceaa5503") {
+      document.querySelectorAll('.tyn-aside-foot .btn').forEach((element) => {
+        element.classList.add('btn-fluvius');
+      })
     }
+
 
     // change logo url to the one in the config
     document.querySelector('.tyn-appbar-logo .tyn-logo').innerHTML = `
@@ -915,15 +920,16 @@
 
   TynApp.initTranslate = function (language, variables = {}) {
 
-    let open_funct = "openstaande functie"
-    if (TynApp.chatbotConfig.id == "eb94fbbc-4d6f-48f1-a2d1-1b3f4af4442a") //fluvius
-      open_funct = "Technieker elektriciteit"
-    else if (TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5") //meat&more
-      open_funct = "Winkelbediende"
+    // let open_funct = "openstaande functie"
+    // if (TynApp.chatbotConfig.id == "eb94fbbc-4d6f-48f1-a2d1-1b3f4af4442a") //fluvius
+    //   open_funct = "Technieker elektriciteit"
+    // else if (TynApp.chatbotConfig.id == "19edee23-72d8-4082-ab5a-e33a95a89ab5") //meat&more
+    //   open_funct = "Winkelbediende"
+    // else if (TynApp.chatbotConfig.id == "4c727d07-7c3e-4bb0-872b-e9aaceaa5503") //meat&more
+    //   open_funct = "Winkelbediende"
 
     variables = {
-      agentName: TynApp.chatbotConfig.chatbotConfig.title,
-      openFunct: open_funct
+      agentName: TynApp.chatbotConfig.chatbotConfig.title
     }
 
     // Convert language to lowercase
