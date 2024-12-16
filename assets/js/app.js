@@ -483,6 +483,9 @@
       const mcaRegex = /\[MCA\](.*?)\[\/MCA\]/g;
       const oeqRegex = /\[OEQ\](.*?)\[\/OEQ\]/s;
 
+      // Wrap 'onze website' phrase with a link to google.com
+      response = response.replace(/onze website/g, '<a href="https://www.meatandmore.be/nl/vacatures" target="_blank">onze website</a>');
+
       // Match and extract MCQ content
       const mcqMatch = response.match(mcqRegex);
       const oeqMatch = response.match(oeqRegex);
