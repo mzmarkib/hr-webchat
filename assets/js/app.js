@@ -1,6 +1,6 @@
 !(function (TynApp) {
   "use strict";
-
+  TynApp.authHeader = "Bearer qeEgodQ4CazaorkiZ863Mik9Kppn-axSg_vG3odur-s"
   // Active Link
   TynApp.ActiveLink = function (selector, active) {
     let elm = document.querySelectorAll(selector);
@@ -372,7 +372,7 @@
           const response = await fetch(`https://traicie-flowise.o.growthist.io/api/v1/prediction/${TynApp.chatbotConfig.id}`, {
             method: 'POST',
             headers: {
-              Authorization: "Bearer SB7lczvHn4_APtsiuUnsLNFMsCTPR_EKQpWMJHNiVao",
+              Authorization: TynApp.authHeader,
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -540,10 +540,16 @@
         redirect: "follow"
       };
 
-      fetch("https://n8n-1.o.growthist.io/webhook/traicie-chat-log", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log("error", error));
+      fetch('https://your-api-endpoint.com', {
+        method: 'GET', // or 'POST', 'PUT', etc.
+        headers: {
+          'Authorization': 'Basic ' + btoa('traicie:@Traicie2024'),
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
     },
     renderPreviousMessages: async function () {
 
@@ -556,7 +562,13 @@
         redirect: "follow"
       };
 
-      await fetch(`https://traicie-flowise.o.growthist.io/api/v1/chatmessage/${TynApp.chatbotConfig.id}?order=ASC&sessionId=${localStorage.sessionId}`, requestOptions)
+      await fetch(`https://traicie-flowise.o.growthist.io/api/v1/chatmessage/${TynApp.chatbotConfig.id}?order=ASC&sessionId=${localStorage.sessionId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': TynApp.authHeader,
+          'Content-Type': 'application/json'
+        }
+      })
         .then((response) => response.text())
         .then((result) => {
           let messages = JSON.parse(result);
@@ -895,7 +907,13 @@
       redirect: "follow"
     };
 
-    await fetch(`https://traicie-flowise.o.growthist.io/api/v1/public-chatflows/${hash.replace('#', "")}`, requestOptions)
+    await fetch(`https://traicie-flowise.o.growthist.io/api/v1/public-chatflows/${hash.replace('#', "")}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': TynApp.authHeader,
+        'Content-Type': 'application/json'
+      }
+    })
       .then((response) => response.text())
       .then((result) => {
         // Parse the main JSON object
