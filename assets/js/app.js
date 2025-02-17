@@ -540,16 +540,16 @@
         redirect: "follow"
       };
 
-      fetch('https://your-api-endpoint.com', {
-        method: 'GET', // or 'POST', 'PUT', etc.
-        headers: {
-          'Authorization': 'Basic ' + btoa('traicie:@Traicie2024'),
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+      // fetch('https://your-api-endpoint.com', {
+      //   method: 'GET', // or 'POST', 'PUT', etc.
+      //   headers: {
+      //     'Authorization': 'Basic ' + btoa('traicie:@Traicie2024'),
+      //     'Content-Type': 'application/json'
+      //   }
+      // })
+      //   .then(response => response.json())
+      //   .then(data => console.log(data))
+      //   .catch(error => console.error('Error:', error));
     },
     renderPreviousMessages: async function () {
 
